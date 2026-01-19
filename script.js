@@ -75,18 +75,29 @@ function saveToHistory(status) {
 }
 
 function showHistory() {
-    document.getElementById("result-box").classList.add("hidden");
-    document.getElementById("history-box").classList.remove("hidden");
+    // Hide everything else
+    document.getElementById("quiz-box").style.display = "none";
+    document.getElementById("result-box").style.display = "none";
+    document.getElementById("progress-container").style.display = "none"; // Hide progress bar too
+    
+    // Show the history box
+    const historyBox = document.getElementById("history-box");
+    historyBox.classList.remove("hidden");
+    historyBox.style.display = "block"; // Force display
     
     const list = document.getElementById("history-list");
     const history = JSON.parse(localStorage.getItem('healthHistory')) || [];
     
-    list.innerHTML = history.map(item => `
-        <li class="history-item">
-            <span class="history-status">${item.status}</span>
-            <small>${item.date}</small>
-        </li>
-    `).join('');
+    if (history.length === 0) {
+        list.innerHTML = "<li>No history found yet.</li>";
+    } else {
+        list.innerHTML = history.map(item => `
+            <li class="history-item">
+                <span class="history-status">${item.status}</span>
+                <small>${item.date}</small>
+            </li>
+        `).join('');
+    }
 }
 
 function clearHistory() {
