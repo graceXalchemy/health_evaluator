@@ -26,10 +26,22 @@
             <p id="recommendation-text"></p>
             <button class="btn" onclick="showHistory()">View History</button>
             <button class="btn" onclick="location.reload()">Start Over</button>
+            <button class="btn" onclick="location.reload()">Back</button>
+        </div>
+        <div id="history-box" class="hidden">
             <h2>Past Check-ins</h2>
             <ul id="history-list"></ul>
-            <button class="btn" onclick="location.reload()">Back</button>
-            <button class="btn btn-no" onclick="clearHistory()">Clear All History</button>
+            <div class="button-group" style="flex-direction: column;">
+                <button class="btn" style="background-color: #2196F3; color: white;" onclick="downloadCSV()">
+                    Download CSV
+                </button>
+                <button class="btn" onclick="location.reload()">
+                    Back to Start
+                </button>
+                <button class="btn btn-no" onclick="clearHistory()" style="margin-top: 20px; font-size: 0.8rem; opacity: 0.7;">
+                    Clear All History
+                </button>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>
