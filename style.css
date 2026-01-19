@@ -1,0 +1,50 @@
+body {
+    font-family: sans-serif;
+    background-color: #f4f7f6;
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+}
+
+.container {
+    width: 90%;
+    max-width: 500px;
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+#progress-container {
+    background: #eee;
+    height: 8px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+#progress-bar {
+    background: #4caf50;
+    height: 100%;
+    width: 0%;
+    border-radius: 4px;
+    transition: width 0.3s;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.btn-yes { background-color: #e8f5e9; color: #2e7d32; }
+.btn-no { background-color: #ffebee; color: #c62828; }
+.hidden { display: none; }

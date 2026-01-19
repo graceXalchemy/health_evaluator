@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Check Evaluator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+        
+        <div id="quiz-box">
+            <h2 id="section-title">Section Name</h2>
+            <p id="question-text">Question goes here?</p>
+            <div class="button-group">
+                <button class="btn btn-yes" onclick="handleAnswer(true)">Yes</button>
+                <button class="btn btn-no" onclick="handleAnswer(false)">No</button>
+            </div>
+        </div>
+
+        <div id="result-box" class="hidden">
+            <h2>Evaluation Results</h2>
+            <p id="recommendation-text"></p>
+            <button class="btn" onclick="location.reload()">Start Over</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
