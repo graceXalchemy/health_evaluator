@@ -1,3 +1,11 @@
+// Add this to the top of your script.js
+const lastData = JSON.parse(localStorage.getItem('lastCheckup'));
+
+if (lastData) {
+    console.log(`Your last status was: ${lastData.status} on ${lastData.date}`);
+};
+
+
 const questions = [
     { id: "visual", text: "Are there 'stars,' blurriness, or light sensitivity?", section: "Neurological" },
     { id: "aphasia", text: "Am I struggling to find basic words or finish a sentence?", section: "Neurological" },
