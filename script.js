@@ -40,6 +40,7 @@ function handleAnswer(val) {
     }
 }
 
+// Replace your evaluateHealth function with this one
 function evaluateHealth() {
     document.getElementById("quiz-box").classList.add("hidden");
     const resultBox = document.getElementById("result-box");
@@ -50,22 +51,49 @@ function evaluateHealth() {
     const neuroIds = ["visual", "aphasia", "sound", "coord"];
     const neuroScore = neuroIds.reduce((count, id) => count + (answers[id] ? 1 : 0), 0);
 
-    // Rule Checking
+    // Rule Checking 
+    let status = "";
     if (neuroScore >= 2 || (answers.irritability && answers.jaw)) {
-        recText.innerHTML = "<strong>Mandatory Break:</strong> Stop all screen and audio work for 60 minutes. Your nervous system is overtaxed.";
-    } else if (answers.pain || answers.posture) {
-        recText.innerHTML = "<strong>Physical Adjustment:</strong> Stretch your neck and check your workstation ergonomics.";
+        status = "Break Needed";
+        recText.innerHTML = "<strong>Mandatory Break:</strong> Stop all screen work.";
     } else {
-        recText.innerHTML = "<strong>Clear:</strong> You are within safe operating limits. Remember to blink and hydrate.";
+        status = "Clear";
+        recText.innerHTML = "<strong>Clear:</strong> You are within safe limits.";
     }
-   // Create history 
-    const historyData = {
-    date: new Date().toLocaleString(),
-    score: neuroScore,
-    status: neuroScore >= 2 ? "Break Needed" : "Clear"
-    };
-    // Save to local storage
-    localStorage.setItem('lastCheckup', JSON.stringify(historyData));
+
+    saveToHistory(status);
 }
+
+function saveToHistory(status) {
+    const history = JSON.parse(localStorage.getItem('healthHistory')) || [];
+    const newEntry = {
+        date: new Date().toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
+        status: status
+    };
+    history.unshift(newEntry); // Adds latest to the top
+    localStorage.setItem('healthHistory', JSON.stringify(history.slice(0, 10))); // Keeps last 10
+}
+
+function showHistory() {
+    document.getElementById("result-box").classList.add("hidden");
+    document.getElementById("history-box").classList.remove("hidden");
+    
+    const list = document.getElementById("history-list");
+    const history = JSON.parse(localStorage.getItem('healthHistory')) || [];
+    
+    list.innerHTML = history.map(item => `
+        <li class="history-item">
+            <span class="history-status">${item.status}</span>
+            <small>${item.date}</small>
+        </li>
+    `).join('');
+}
+
+function clearHistory() {
+    if(confirm("Delete all history?")) {
+        localStorage.removeItem('healthHistory');
+        location.reload();
+    }
+        } 
 
 updateUI(); // Initialize first question
