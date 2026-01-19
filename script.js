@@ -50,6 +50,14 @@ function evaluateHealth() {
     } else {
         recText.innerHTML = "<strong>Clear:</strong> You are within safe operating limits. Remember to blink and hydrate.";
     }
+   // Create history 
+    const historyData = {
+    date: new Date().toLocaleString(),
+    score: neuroScore,
+    status: neuroScore >= 2 ? "Break Needed" : "Clear"
+    };
+    // Save to local storage
+    localStorage.setItem('lastCheckup', JSON.stringify(historyData));
 }
 
 updateUI(); // Initialize first question
