@@ -24,7 +24,12 @@
         <div id="result-box" class="hidden">
             <h2>Evaluation Results</h2>
             <p id="recommendation-text"></p>
+            <button class="btn" onclick="showHistory()">View History</button>
             <button class="btn" onclick="location.reload()">Start Over</button>
+            <h2>Past Check-ins</h2>
+            <ul id="history-list"></ul>
+            <button class="btn" onclick="location.reload()">Back</button>
+            <button class="btn btn-no" onclick="clearHistory()">Clear All History</button>
         </div>
     </div>
     <script src="script.js"></script>
