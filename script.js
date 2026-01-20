@@ -64,6 +64,25 @@ function evaluateHealth() {
     saveToHistory(status);
 }
 
+function downloadCSV() {
+    const history = JSON.parse(localStorage.getItem('healthHistory')) || [];
+    if (history.length === 0) return alert("No data to download");
+
+    // Create CSV header and rows
+    let csvContent = "Date,Status\n";
+    history.forEach(item => {
+        csvContent += `"${item.date}","${item.status}"\n`;
+    });
+
+    // Create a downloadable link
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.setAttribute('href', url);
+    a.setAttribute('download', 'health_history.csv');
+    a.click();
+}
+
 function saveToHistory(status) {
     const history = JSON.parse(localStorage.getItem('healthHistory')) || [];
     const newEntry = {
