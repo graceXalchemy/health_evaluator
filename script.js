@@ -23,7 +23,7 @@ const questionData = [
             { id: "posture", text: "Is my chin reaching toward the screen?" },
             { id: "pain", text: "Is there a sharp or throbbing sensation present?" },
             { id: "soreness", text: "Do I have muscle soreness or aching?" },
-            { id: "weakness", text: "Do my limbs feel heavy or clumsy?" }
+            { id: "weakness", text: "Do I have weakness in moving and lifting?" }
         ]
     },
     {
