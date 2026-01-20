@@ -126,8 +126,18 @@ body {
     font-weight: bold;
 }
 
-.graph-label {
-    font-size: 0.75rem;
-    color: #666;
-    margin-top: 8px;
-    }
+/* Container for the dates under the bars */
+#graph-labels {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 5px;
+}
+
+.date-label {
+    font-size: 0.6rem;
+    color: #888;
+    width: 25px; /* Matches bar width + some spacing */
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+} 
