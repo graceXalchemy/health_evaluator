@@ -8,7 +8,7 @@ This app is a **Health Evaluation Tool** designed to monitor central nervous sys
 
 * **Sequential Delivery:** Questions appear one at a time to reduce cognitive load.
 * **Section Shuffling:** Randomizes question order within categories to prevent "autopilot" answering.
-* **Direct Language:** Replaces abstract status updates with concrete, actionable instructions.
+* **Direct Language:** Concrete, actionable instructions.
 * **Rules Engine:** Uses a hierarchy of symptoms to prioritize neurological safety.
 * **Persistent History:** Saves the last 10 entries to your device to track health trends.
 
