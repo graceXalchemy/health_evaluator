@@ -27,6 +27,11 @@
             <button class="btn" onclick="showHistory()">View History</button>
             <button class="btn" onclick="location.reload()">Start Over</button>
             <button class="btn" onclick="location.reload()">Back</button>
+            <div id="notification-settings" style="margin-top: 20px; padding: 10px; border-top: 1px solid #eee;">
+                <button class="btn" style="background-color: #9c27b0; color: white;" onclick="requestNotificationPermission()">
+                    Enable Daily Reminders
+                </button>
+            </div>
         </div>
         <div id="history-box" class="hidden">
             <h2>Past Check-ins</h2>
@@ -42,11 +47,7 @@
                     Clear All History
                 </button>
             </div>
-            <div id="notification-settings" style="margin-top: 20px; padding: 10px; border-top: 1px solid #eee;">
-                <button class="btn" style="background-color: #9c27b0; color: white;" onclick="requestNotificationPermission()">
-                    Enable Daily Reminders
-                </button>
-            </div>
+
         </div>
     </div>
     <script src="script.js"></script>
