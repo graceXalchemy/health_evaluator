@@ -118,7 +118,7 @@ function evaluateHealth() {
     }
 
     recText.innerHTML = message;
-    saveToHistory(status);
+    saveToHistory(status, neuroScore);
 }
 
 function saveToHistory(status) {
@@ -171,6 +171,8 @@ function showHistory() {
     const historyBox = document.getElementById("history-box");
     historyBox.classList.remove("hidden");
     historyBox.style.display = "block"; // Force display
+
+    renderGraph();
     
     const list = document.getElementById("history-list");
     const history = JSON.parse(localStorage.getItem('healthHistory')) || [];
@@ -275,5 +277,20 @@ function calculateNextDay() {
     tomorrow.setHours(9, 0, 0); // Set to 9 AM tomorrow
     return tomorrow.getTime();
             }
+
+function renderGraph() {
+    const history = JSON.parse(localStorage.getItem('healthHistory')) || [];
+    const graphBars = document.getElementById("graph-bars");
+    
+    // We reverse it so the oldest is on the left, newest on the right
+    const trendData = [...history].reverse();
+
+    graphBars.innerHTML = trendData.map(item => {
+        // Calculate height: (score / max score of 4) * 100px
+        const height = (item.score / 4) * 100;
+        const color = item.score >= 2 ? "#f44336" : "#2196F3"; // Red if 2 or more
+        return `<div class="bar" style="height: ${height}px; background-color: ${color};" data-score="${item.score}"></div>`;
+    }).join('');
+}
 
 updateUI(); // Initialize first question
