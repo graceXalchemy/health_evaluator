@@ -128,4 +128,86 @@ function clearHistory() {
     }
         } 
 
+// --- Notification Logic ---
+
+function requestNotificationPermission() {
+    Notification.requestPermission().then(permission => {
+        if (permission === "granted") {
+            alert("Notifications enabled! We will check in with you daily.");
+            scheduleNextReminder();
+        }
+    });
+}
+
+function scheduleNextReminder() {
+    // Check every minute if it's time for a reminder
+    setInterval(checkReminderLogic, 60000);
+}
+
+function checkReminderLogic() {
+    const now = new Date();
+    const reminderData = JSON.parse(localStorage.getItem('reminderData')) || {
+        lastShownDate: null,
+        nextScheduledTime: new Date().getTime(),
+        snoozeCount: 0
+    };
+
+    // If it's time to show the notification
+    if (now.getTime() >= reminderData.nextScheduledTime) {
+        const todayStr = now.toDateString();
+        
+        // Don't show if we already finished today's cycle
+        if (reminderData.lastShownDate === todayStr && reminderData.snoozeCount === 0) return;
+
+        showReminderNotification(reminderData);
+    }
+}
+
+function showReminderNotification(data) {
+    const notification = new Notification("Health Check-in", {
+        body: data.snoozeCount < 2 
+            ? "Time for your health evaluation. Tap to start or snooze for 3 hours." 
+            : "Final reminder for today. Tap to start.",
+        requireInteraction: true
+    });
+
+    notification.onclick = () => {
+        window.focus();
+        // Reset for tomorrow once the user opens the app
+        data.lastShownDate = new Date().toDateString();
+        data.snoozeCount = 0;
+        data.nextScheduledTime = calculateNextDay();
+        localStorage.setItem('reminderData', JSON.stringify(data));
+    };
+
+    // Add a way to snooze (Postpone)
+    if (data.snoozeCount < 2) {
+        // In a real app, we'd use 'actions', but for web compatibility, 
+        // we will handle the snooze if they DON'T click the notification within 5 mins
+        setTimeout(() => {
+            postponeReminder(data);
+        }, 300000); 
+    } else {
+        // If 2nd postponement is missed, roll to next day
+        data.lastShownDate = new Date().toDateString();
+        data.snoozeCount = 0;
+        data.nextScheduledTime = calculateNextDay();
+        localStorage.setItem('reminderData', JSON.stringify(data));
+    }
+}
+
+function postponeReminder(data) {
+    data.snoozeCount++;
+    // Add 3 hours (3 * 60 * 60 * 1000 milliseconds)
+    data.nextScheduledTime = new Date().getTime() + (3 * 60 * 60 * 1000);
+    localStorage.setItem('reminderData', JSON.stringify(data));
+}
+
+function calculateNextDay() {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(9, 0, 0); // Set to 9 AM tomorrow
+    return tomorrow.getTime();
+            }
+
 updateUI(); // Initialize first question
