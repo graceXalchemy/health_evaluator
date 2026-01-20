@@ -82,8 +82,23 @@ body {
     display: flex;
     align-items: flex-end;
     justify-content: space-around;
-    height: 100px; /* Max height for a score of 4 */
+    height: 100px;  /* Max height for a score of 4 */
     border-bottom: 2px solid #444;
+    position: relative; /* Needed for the goal line position */
+}
+
+/* The horizontal threshold line */
+#graph-bars::before {
+    content: "DANGER THRESHOLD";
+    position: absolute;
+    bottom: 50px; /* Represents a score of 2 (50% of 100px) */
+    left: 0;
+    width: 100%;
+    border-top: 1px dashed #f44336;
+    color: #f44336;
+    font-size: 0.6rem;
+    text-align: right;
+    pointer-events: none;
 }
 
 .bar {
