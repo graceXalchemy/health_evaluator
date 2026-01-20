@@ -42,47 +42,49 @@ function handleAnswer(val) {
     }
 }
 
-// Replace your evaluateHealth function with this one
 function evaluateHealth() {
+    // 1. Hide the quiz and progress bar, show the result box
     document.getElementById("quiz-box").classList.add("hidden");
+    document.getElementById("progress-container").classList.add("hidden");
     const resultBox = document.getElementById("result-box");
     const recText = document.getElementById("recommendation-text");
     resultBox.classList.remove("hidden");
 
-    // Neurological count
+    // 2. Calculate scores for specific categories
     const neuroIds = ["visual", "aphasia", "sound", "coord"];
     const neuroScore = neuroIds.reduce((count, id) => count + (answers[id] ? 1 : 0), 0);
 
-    // Rule Checking 
+    // 3. Define the status and recommendation based on your rules
     let status = "";
-    let recommendation = "";
-    // Rule: Weakness + any Neuro symptom is an automatic "Stop"
+    let message = "";
+
+    // RULE 1: High Alert (Weakness + any Neuro symptom)
     if (answers.weakness && neuroScore >= 1) {
-        status = "Immediate Rest";
-        recommendation = "<strong>High Alert:</strong> Muscle weakness combined with neuro symptoms requires an immediate stop and rest.";
+        status = "Critical Rest";
+        message = "<strong>Immediate Stop:</strong> Muscle weakness paired with neurological 'warning lights' indicates high central nervous system fatigue. Stop all activity.";
     } 
-    // Your original Rule
+    // RULE 2: Your Original Rule (2 Neuro OR Irritability + Jaw)
     else if (neuroScore >= 2 || (answers.irritability && answers.jaw)) {
         status = "Break Needed";
-        recommendation = "<strong>Mandatory Break:</strong> Stop all screen work for 60 minutes.";
-    }
-    // Rule: Soreness only
-    else if (answers.soreness) {
-        status = "Recovery Focus";
-        recommendation = "<strong>Physical Note:</strong> Muscle soreness detected. Ensure you are hydrating and consider gentle stretching.";
-    }
+        message = "<strong>Mandatory Break:</strong> Your current metrics exceed safe limits. Stop all screen and audio work for 60 minutes.";
+    } 
+    // RULE 3: Physical Load (Soreness, Posture, or Pain)
+    else if (answers.soreness || answers.pain || answers.posture) {
+        status = "Caution";
+        message = "<strong>Recovery Focus:</strong> Physical strain detected. Perform gentle stretching, hydrate, and check your posture before continuing.";
+    } 
+    // RULE 4: All Clear
     else {
         status = "Clear";
-        recommendation = "<strong>Clear:</strong> You are within safe limits.";
+        message = "<strong>Systems Nominal:</strong> You are within safe operating limits. Continue monitoring every 3 hours.";
     }
 
-    // Display and Save
-    document.getElementById("recommendation-text").innerHTML = recommendation;
-    saveToHistory(status);
-    }
+    // 4. Update the UI
+    recText.innerHTML = message;
 
+    // 5. Save this result to the history list
     saveToHistory(status);
-}
+            }
 
 function downloadCSV() {
     const history = JSON.parse(localStorage.getItem('healthHistory')) || [];
