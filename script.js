@@ -1,10 +1,4 @@
-// Add this to the top of your script.js
-const lastData = JSON.parse(localStorage.getItem('lastCheckup'));
-
-if (lastData) {
-    console.log(`Your last status was: ${lastData.status} on ${lastData.date}`);
-};
-
+// 1. Data Structure with Shuffle Logic
 const questionData = [
     {
         section: "Section A: Neurological",
@@ -23,7 +17,7 @@ const questionData = [
             { id: "posture", text: "Is my chin reaching toward the screen?" },
             { id: "pain", text: "Is there a sharp or throbbing sensation present?" },
             { id: "soreness", text: "Do I have muscle soreness or aching?" },
-            { id: "weakness", text: "Do I have weakness in moving and lifting?" }
+            { id: "weakness", text: "Do my limbs feel heavy or clumsy?" }
         ]
     },
     {
@@ -36,7 +30,6 @@ const questionData = [
     }
 ];
 
-// Shuffle function to prevent "zoning out"
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -44,13 +37,12 @@ function shuffleArray(array) {
     }
 }
 
-// Flatten the questions into one list for the app to cycle through
 let questions = [];
 questionData.forEach(sec => {
     let sectionQuestions = [...sec.questions];
-    shuffleArray(sectionQuestions); // Shuffle within the section
+    shuffleArray(sectionQuestions); 
     sectionQuestions.forEach(q => {
-        q.sectionTitle = sec.section;
+        q.sectionTitle = sec.section; // This fixes the "undefined" error
         questions.push(q);
     });
 });
@@ -58,11 +50,33 @@ questionData.forEach(sec => {
 let currentIdx = 0;
 let answers = {};
 
+// 2. Initialize App and Show Last Data
 function updateUI() {
     const q = questions[currentIdx];
-    document.getElementById("section-title").innerText = q.section;
+    
+    // Fix: Using 'sectionTitle' which matches the property assigned above
+    document.getElementById("section-title").innerText = q.sectionTitle;
     document.getElementById("question-text").innerText = q.text;
-    document.getElementById("progress-bar").style.width = `${(currentIdx / questions.length) * 100}%`;
+    
+    const progress = (currentIdx / questions.length) * 100;
+    document.getElementById("progress-bar").style.width = `${progress}%`;
+
+    // Show Last Data if on first question
+    if (currentIdx === 0) {
+        displayLastCheckin();
+    }
+}
+
+function displayLastCheckin() {
+    const history = JSON.parse(localStorage.getItem('healthHistory')) || [];
+    if (history.length > 0) {
+        const last = history[0];
+        // Ensure you have a div with id="last-checkin" in your HTML
+        const lastDiv = document.getElementById("last-checkin");
+        if (lastDiv) {
+            lastDiv.innerHTML = `<small>Last check-in: ${last.status} (${last.date})</small>`;
+        }
+    }
 }
 
 function handleAnswer(val) {
@@ -75,49 +89,47 @@ function handleAnswer(val) {
     }
 }
 
+// 3. Evaluation Logic with Direct Language
 function evaluateHealth() {
-    // 1. Hide the quiz and progress bar, show the result box
     document.getElementById("quiz-box").classList.add("hidden");
     document.getElementById("progress-container").classList.add("hidden");
     const resultBox = document.getElementById("result-box");
     const recText = document.getElementById("recommendation-text");
     resultBox.classList.remove("hidden");
 
-    // 2. Calculate scores for specific categories
     const neuroIds = ["visual", "aphasia", "sound", "coord"];
     const neuroScore = neuroIds.reduce((count, id) => count + (answers[id] ? 1 : 0), 0);
 
-    // 3. Define the status and recommendation based on your rules
     let status = "";
     let message = "";
 
-    // RULE 1: High Alert (Weakness + any Neuro symptom)
     if (answers.weakness && neuroScore >= 1) {
-        status = "Critical Rest";
-        message = "<strong>Immediate Stop:</strong> Muscle weakness paired with neurological 'warning lights' indicates high central nervous system fatigue. Stop all activity.";
-    } 
-    // RULE 2: Your Original Rule (2 Neuro OR Irritability + Jaw)
-    else if (neuroScore >= 2 || (answers.irritability && answers.jaw)) {
-        status = "Break Needed";
-        message = "<strong>Mandatory Break:</strong> Your current metrics exceed safe limits. Stop all screen and audio work for 60 minutes.";
-    } 
-    // RULE 3: Physical Load (Soreness, Posture, or Pain)
-    else if (answers.soreness || answers.pain || answers.posture) {
-        status = "Caution";
-        message = "<strong>Recovery Focus:</strong> Physical strain detected. Perform gentle stretching, hydrate, and check your posture before continuing.";
-    } 
-    // RULE 4: All Clear
-    else {
-        status = "Clear";
-        message = "<strong>Systems Nominal:</strong> You are within safe operating limits. Continue monitoring every 3 hours.";
+        status = "Stop Now";
+        message = "<strong>You must stop.</strong> You have muscle weakness and brain warning signs. Sit or lie down in a quiet place.";
+    } else if (neuroScore >= 2 || (answers.irritability && answers.jaw)) {
+        status = "60 Minute Break";
+        message = "<strong>Take a break.</strong> Stop all screen work and turn off audio for 60 minutes. Your body needs to rest.";
+    } else if (answers.soreness || answers.pain || answers.posture || answers.edema) {
+        status = "Physical Adjustment";
+        message = "<strong>Check your body.</strong> Stretch, drink water, and fix your posture before you keep working.";
+    } else {
+        status = "Ready to Work";
+        message = "<strong>You can keep working.</strong> You do not have signs of over-taxing right now. Check again in 3 hours.";
     }
 
-    // 4. Update the UI
     recText.innerHTML = message;
-
-    // 5. Save this result to the history list
     saveToHistory(status);
-            }
+}
+
+function saveToHistory(status) {
+    const history = JSON.parse(localStorage.getItem('healthHistory')) || [];
+    const newEntry = {
+        date: new Date().toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
+        status: status
+    };
+    history.unshift(newEntry);
+    localStorage.setItem('healthHistory', JSON.stringify(history.slice(0, 10)));
+} 
 
 function downloadCSV() {
     const history = JSON.parse(localStorage.getItem('healthHistory')) || [];
