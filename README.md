@@ -12,7 +12,21 @@ This app is a **Health Evaluation Tool** designed to monitor central nervous sys
 * **Rules Engine:** Uses a hierarchy of symptoms to prioritize neurological safety.
 * **Persistent History:** Saves the last 10 entries to your device to track health trends.
 
+--- 
+
+### The Logical Flow of the Evaluation
+
+The app categorizes your health into three distinct "levels" of concern. This hierarchy ensures that a serious brain or muscle issue takes priority over a simple posture check.
+
+Level 1: Neuromuscular (Stop Now) – Addresses the risk of serious physical or neurological "crashes."
+
+Level 2: Neurological & Stress (Take a Break) – Addresses over-stimulation and the beginning of a "fight or flight" response.
+
+Level 3: Physical (Adjust) – Addresses ergonomics and minor strain to prevent them from becoming Level 1 or 2 issues later. 
+
 ---
+
+### The Code
 
 ## 1. The HTML (`index.html`)
 
