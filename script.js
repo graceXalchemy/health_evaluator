@@ -55,12 +55,30 @@ function evaluateHealth() {
 
     // Rule Checking 
     let status = "";
-    if (neuroScore >= 2 || (answers.irritability && answers.jaw)) {
+    let recommendation = "";
+    // Rule: Weakness + any Neuro symptom is an automatic "Stop"
+    if (answers.weakness && neuroScore >= 1) {
+        status = "Immediate Rest";
+        recommendation = "<strong>High Alert:</strong> Muscle weakness combined with neuro symptoms requires an immediate stop and rest.";
+    } 
+    // Your original Rule
+    else if (neuroScore >= 2 || (answers.irritability && answers.jaw)) {
         status = "Break Needed";
-        recText.innerHTML = "<strong>Mandatory Break:</strong> Stop all screen work.";
-    } else {
+        recommendation = "<strong>Mandatory Break:</strong> Stop all screen work for 60 minutes.";
+    }
+    // Rule: Soreness only
+    else if (answers.soreness) {
+        status = "Recovery Focus";
+        recommendation = "<strong>Physical Note:</strong> Muscle soreness detected. Ensure you are hydrating and consider gentle stretching.";
+    }
+    else {
         status = "Clear";
-        recText.innerHTML = "<strong>Clear:</strong> You are within safe limits.";
+        recommendation = "<strong>Clear:</strong> You are within safe limits.";
+    }
+
+    // Display and Save
+    document.getElementById("recommendation-text").innerHTML = recommendation;
+    saveToHistory(status);
     }
 
     saveToHistory(status);
