@@ -5,22 +5,55 @@ if (lastData) {
     console.log(`Your last status was: ${lastData.status} on ${lastData.date}`);
 };
 
-
-const questions = [
-    { id: "visual", text: "Are there 'stars,' blurriness, or light sensitivity?", section: "Neurological" },
-    { id: "aphasia", text: "Am I struggling to find basic words or finish a sentence?", section: "Neurological" },
-    { id: "sound", text: "Does the hum of the fridge or computer fan feel 'loud'?", section: "Neurological" },
-    { id: "coord", text: "Did I stumble or drop something in the last hour?", section: "Neurological" },
-    { id: "jaw", text: "Are my teeth touching or clenched?", section: "Physical" },
-    { id: "edema", text: "Does my footwear/skin feel tighter than an hour ago?", section: "Physical" },
-    { id: "posture", text: "Is my chin 'reaching' toward the screen?", section: "Physical" },
-    { id: "weakness", text: "Are you experiencing weakness in moving or lifting?", section: "Physical" },
-    { id: "pain", text: "Is there a sharp 'ice-pick' or 'throbbing' sensation?", section: "Physical" }, 
-    { id: "aches", text: "Do you have general muscle aches?", section: "Physical" }, 
-    { id: "irritability", text: "Did a minor software lag make me angry?", section: "Psychological" },
-    { id: "dread", text: "Do I feel a 'pit' in my stomach about the next task?", section: "Psychological" },
-    { id: "urgency", text: "Do I feel a 'false' sense of rushing?", section: "Psychological" }
+const questionData = [
+    {
+        section: "Section A: Neurological",
+        questions: [
+            { id: "visual", text: "Are there 'stars,' blurriness, or light sensitivity?" },
+            { id: "aphasia", text: "Am I struggling to find basic words or finish a sentence?" },
+            { id: "sound", text: "Does the hum of the fridge or computer fan feel 'loud'?" },
+            { id: "coord", text: "Did I stumble or drop something in the last hour?" }
+        ]
+    },
+    {
+        section: "Section B: Physical",
+        questions: [
+            { id: "jaw", text: "Are my teeth touching or clenched?" },
+            { id: "edema", text: "Does my footwear or skin feel tighter than an hour ago?" },
+            { id: "posture", text: "Is my chin reaching toward the screen?" },
+            { id: "pain", text: "Is there a sharp or throbbing sensation present?" },
+            { id: "soreness", text: "Do I have muscle soreness or aching?" },
+            { id: "weakness", text: "Do my limbs feel heavy or clumsy?" }
+        ]
+    },
+    {
+        section: "Section C: Psychological",
+        questions: [
+            { id: "irritability", text: "Did a minor software lag or notification make me angry?" },
+            { id: "dread", text: "Do I feel a 'pit' in my stomach about the next task?" },
+            { id: "urgency", text: "Do I feel a 'false' sense of rushing when there is no deadline?" }
+        ]
+    }
 ];
+
+// Shuffle function to prevent "zoning out"
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+// Flatten the questions into one list for the app to cycle through
+let questions = [];
+questionData.forEach(sec => {
+    let sectionQuestions = [...sec.questions];
+    shuffleArray(sectionQuestions); // Shuffle within the section
+    sectionQuestions.forEach(q => {
+        q.sectionTitle = sec.section;
+        questions.push(q);
+    });
+});
 
 let currentIdx = 0;
 let answers = {};
