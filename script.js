@@ -150,14 +150,15 @@ function downloadCSV() {
     a.click();
 }
 
-function saveToHistory(status) {
+function saveToHistory(status, neuroScore) { // Add neuroScore parameter
     const history = JSON.parse(localStorage.getItem('healthHistory')) || [];
     const newEntry = {
         date: new Date().toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
-        status: status
+        status: status,
+        score: neuroScore // Save the raw score here
     };
     history.unshift(newEntry); // Adds latest to the top
-    localStorage.setItem('healthHistory', JSON.stringify(history.slice(0, 10))); // Keeps last 10
+    localStorage.setItem('healthHistory', JSON.stringify(history.slice(0, 10)));
 }
 
 function showHistory() {
