@@ -8,6 +8,15 @@
 </head>
 <body>
     <div class="container">
+        <div class="header-controls">
+        <select id="theme-select" onchange="changeTheme(this.value)">
+            <option value="light">Mode: Day</option>
+            <option value="dark">Mode: Night</option>
+            <option value="rest">Mode: Recover</option>
+        </select>
+        
+        <button id="quick-history-btn" class="btn-small" onclick="showHistory()">View History</button>
+        </div>
         <div id="progress-container">
             <div id="progress-bar"></div>
         </div>
