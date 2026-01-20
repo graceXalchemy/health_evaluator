@@ -1,4 +1,4 @@
-Created through the Gemini (3) interface
+Created through the Gemini (3) web interface
 
 ## Project Overview
 
