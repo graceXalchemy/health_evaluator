@@ -1,7 +1,7 @@
 // 1. Data Structure with Shuffle Logic
 const questionData = [
     {
-        section: "Section A: Neurological",
+        section: "Neurological",
         questions: [
             { id: "visual", text: "Are there 'stars,' blurriness, or light sensitivity?" },
             { id: "aphasia", text: "Am I struggling to find basic words or finish a sentence?" },
@@ -10,18 +10,18 @@ const questionData = [
         ]
     },
     {
-        section: "Section B: Physical",
+        section: "Physical",
         questions: [
             { id: "jaw", text: "Are my teeth touching or clenched?" },
             { id: "edema", text: "Does my footwear or skin feel tighter than an hour ago?" },
             { id: "posture", text: "Is my chin reaching toward the screen?" },
-            { id: "pain", text: "Is there a sharp or throbbing sensation present?" },
+            { id: "pain", text: "Is there a sharp or throbbing sensation present in my face or head?" },
             { id: "soreness", text: "Do I have muscle soreness or aching?" },
-            { id: "weakness", text: "Do my limbs feel heavy or clumsy?" }
+            { id: "weakness", text: "Do I experience weakness in moving or lifting?" }
         ]
     },
     {
-        section: "Section C: Psychological",
+        section: "Psychological",
         questions: [
             { id: "irritability", text: "Did a minor software lag or notification make me angry?" },
             { id: "dread", text: "Do I feel a 'pit' in my stomach about the next task?" },
