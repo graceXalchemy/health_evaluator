@@ -14,7 +14,9 @@ const questions = [
     { id: "jaw", text: "Are my teeth touching or clenched?", section: "Physical" },
     { id: "edema", text: "Does my footwear/skin feel tighter than an hour ago?", section: "Physical" },
     { id: "posture", text: "Is my chin 'reaching' toward the screen?", section: "Physical" },
-    { id: "pain", text: "Is there a sharp 'ice-pick' or 'throbbing' sensation?", section: "Physical" },
+    { id: "weakness", text: "Are you experiencing weakness in moving or lifting?", section: "Physical" },
+    { id: "pain", text: "Is there a sharp 'ice-pick' or 'throbbing' sensation?", section: "Physical" }, 
+    { id: "aches", text: "Do you have general muscle aches?", section: "Physical" }, 
     { id: "irritability", text: "Did a minor software lag make me angry?", section: "Psychological" },
     { id: "dread", text: "Do I feel a 'pit' in my stomach about the next task?", section: "Psychological" },
     { id: "urgency", text: "Do I feel a 'false' sense of rushing?", section: "Psychological" }
