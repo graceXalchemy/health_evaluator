@@ -278,6 +278,7 @@ function calculateNextDay() {
 
 // --- Theme Logic ---
 function changeTheme(themeName) {
+    console.log("Switching to:", themeName); // This will tell us if the button works
     document.documentElement.setAttribute('data-theme', themeName);
     localStorage.setItem('preferredTheme', themeName);
 }
