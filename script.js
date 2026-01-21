@@ -151,6 +151,15 @@ function saveToHistory(status, neuroScore) { // Add neuroScore parameter
     localStorage.setItem('healthHistory', JSON.stringify(history.slice(0, 10)));
 }
 
+// Function to control the top history button visibility
+function toggleTopHistoryButton(show) {
+    const btn = document.getElementById("quick-history-btn");
+    if (btn) {
+        if (show) btn.classList.remove("hidden");
+        else btn.classList.add("hidden");
+    }
+}
+
 function showHistory() {
     // 1. Hide everything else
     document.getElementById("quiz-box").classList.add("hidden");
