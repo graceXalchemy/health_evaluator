@@ -51,7 +51,18 @@
     color: #ffffff;
     border-color: #555555;
 }
+/* --- Dark Mode Specific Button Colors --- */
+[data-theme="dark"] .btn-yes {
+    background-color: #1b5e20; /* Deep Green */
+    border-color: #2e7d32;
+    color: #ffffff;
+}
 
+[data-theme="dark"] .btn-no {
+    background-color: #b71c1c; /* Deep Red */
+    border-color: #d32f2f;
+    color: #ffffff;
+}
 /* Ensure Yes/No buttons still have their color identity */
 .btn-yes { border-color: #4caf50; color: #2e7d32; }
 .btn-no { border-color: #f44336; color: #c62828; }
