@@ -193,6 +193,7 @@ function clearHistory() {
 function changeTheme(themeName) {
     document.documentElement.setAttribute('data-theme', themeName);
     localStorage.setItem('preferredTheme', themeName);
+}
 
 // --- Notification Logic ---
 
@@ -312,4 +313,3 @@ document.getElementById('theme-select').value = savedTheme;
 updateUI(); // Initialize first questione(tomorrow.getDate() + 1);
     tomorrow.setHours(9, 0, 0); // Set to 9 AM tomorrow
     return tomorrow.getTime();
-            }
