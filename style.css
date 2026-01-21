@@ -1,23 +1,69 @@
-/* Default Dark Mode */
+/* --- Variable Definitions --- */
 :root {
-    --bg-color: #1a1a1a;
-    --text-color: #f0f0f0;
-    --container-bg: #2d2d2d;
-    --btn-text: #ffffff;
-}
-
-/* Light Mode */
-[data-theme="light"] {
     --bg-color: #ffffff;
     --text-color: #333333;
     --container-bg: #f4f7f6;
+    --btn-border: #cccccc;
+    --btn-text: #333333;
 }
 
-/* Rest Mode */
+[data-theme="dark"] {
+    --bg-color: #1a1a1a;
+    --text-color: #f0f0f0;
+    --container-bg: #121212;
+    --btn-border: #555555;
+    --btn-text: #ffffff;
+}
+
 [data-theme="rest"] {
-    --bg-color: #e8f5e9; /* Light Green Bg */
-    --text-color: #555555; /* Gray Text */
-    --container-bg: #ffffff;
+    --bg-color: #e8f5e9; /* Green bg */
+    --text-color: #2e7d32; /* Darker green text for readability */
+    --container-bg: #c8e6c9;
+    --btn-border: #81c784;
+    --btn-text: #1b5e20;
+}
+
+/* --- Improved Button Styles --- */
+.btn {
+    flex: 1;
+    padding: 18px;
+    border: 2px solid var(--btn-border); /* Border makes buttons visible in all modes */
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background-color: var(--bg-color);
+    color: var(--btn-text);
+    transition: all 0.2s ease;
+}
+
+/* Specifically fixing the "Yes" button in Rest Mode */
+[data-theme="rest"] .btn-yes {
+    background-color: #ffffff; /* Solid white background so it pops against green */
+    border: 3px solid #2e7d32;
+    color: #2e7d32;
+}
+
+/* Fixing Dark Mode "View History" and other buttons */
+[data-theme="dark"] .btn, 
+[data-theme="dark"] .btn-small {
+    background-color: #333333;
+    color: #ffffff;
+    border-color: #555555;
+}
+
+/* Ensure Yes/No buttons still have their color identity */
+.btn-yes { border-color: #4caf50; color: #2e7d32; }
+.btn-no { border-color: #f44336; color: #c62828; }
+
+/* Small Header Button Fix */
+.btn-small {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--btn-border);
+    border-radius: 4px;
 }
 
 body { 
@@ -39,14 +85,6 @@ body {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
-}
-
-.btn-small {
-    padding: 5px 10px;
-    font-size: 0.8rem;
-    cursor: pointer;
-    border-radius: 4px;
-    border: 1px solid #ccc;
 }
 
 #progress-container {
@@ -91,17 +129,6 @@ body {
     margin-top: 20px;
 }
 
-.btn {
-    flex: 1;
-    padding: 15px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-.btn-yes { background-color: #e8f5e9; color: #2e7d32; }
-.btn-no { background-color: #ffebee; color: #c62828; }
 .hidden { display: none; }
 
 #graph-container {
