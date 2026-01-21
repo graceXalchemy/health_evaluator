@@ -244,3 +244,14 @@ body {
     font-size: 1rem;
     color: var(--text-color);
     }
+
+/* Force all text in the history/graph area to follow the theme */
+#history-box *, #graph-container * {
+    color: var(--text-color);
+}
+
+/* Ensure the bars have a background that isn't white */
+.bar {
+    border-radius: 4px 4px 0 0;
+    margin: 0 2px;
+}
