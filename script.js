@@ -163,15 +163,12 @@ function saveToHistory(status, neuroScore) { // Add neuroScore parameter
 
 function showHistory() {
     // Hide everything else
-    document.getElementById("quiz-box").style.display = "none";
-    document.getElementById("result-box").style.display = "none";
-    document.getElementById("progress-container").style.display = "none"; // Hide progress bar too
+    document.getElementById("quiz-box").classList.add("hidden");
+    document.getElementById("result-box").classList.add("hidden");
+    document.getElementById("progress-container").classList.add("hidden");
     
-    // Show the history box
-    const historyBox = document.getElementById("history-box");
-    historyBox.classList.remove("hidden");
-    historyBox.style.display = "block"; // Force display
-
+    // Show history
+    document.getElementById("history-box").classList.remove("hidden");
     renderGraph();
     
     const list = document.getElementById("history-list");
@@ -288,46 +285,6 @@ function calculateNextDay() {
     return tomorrow.getTime();
             }
 
-function renderGraph() {
-    const history = JSON.parse(localStorage.getItem('healthHistory')) || [];
-    const graphBars = document.getElementById("graph-bars");
-    const graphLabels = document.getElementById("graph-labels");
-    // We reverse it so the oldest is on the left, newest on the right
-    const trendData = [...history].reverse();
-
-    // 1. Render the Bars
-    graphBars.innerHTML = trendData.map(item => {
-        // We calculate height based on 4 being the max score
-        // 0 becomes 5px (from CSS), 1=25px, 2=50px, 3=75px, 4=100px
-        const height = (item.score / 4) * 100;
-        let color = "#2196F3"; // Default Blue
-        if (item.score === 0) color = "#e0e0e0"; // Default Blue 
-        if (item.score >= 2) color = "#f44336"; // Danger Red
-        
-        return `<div class="bar" style="height: ${height}px; background-color: ${color};" data-score="${item.score}"></div>`;
-    }).join('');
-
-    // 2. Render the Labels
-    graphLabels.innerHTML = trendData.map(item => {
-        // Extract the date part (e.g., "Jan 20") from the saved string
-        // Assumes date format like "Jan 20, 10:12 AM"
-        const datePart = item.date.split(',')[0]; 
-        return `<div class="date-label">${datePart}</div>`;
-    }).join('');
-}
-
-updateUI(); // Initialize first questione(tomorrow.getDate() + 1);
-    tomorrow.setHours(9, 0, 0); // Set to 9 AM tomorrow
-    return tomorrow.getTime();
-            }
-
-// --- Theme Logic ---
-function changeTheme(themeName) {
-    console.log("Switching to:", themeName); // This will tell us if the button works
-    document.documentElement.setAttribute('data-theme', themeName);
-    localStorage.setItem('preferredTheme', themeName);
-}
-
 // --- Updated Graph with Days ---
 function renderGraph() {
     const history = JSON.parse(localStorage.getItem('healthHistory')) || [];
@@ -361,4 +318,7 @@ const savedTheme = localStorage.getItem('preferredTheme') || 'light';
 changeTheme(savedTheme);
 document.getElementById('theme-select').value = savedTheme; 
 
-updateUI(); // Initialize first question
+updateUI(); // Initialize first questione(tomorrow.getDate() + 1);
+    tomorrow.setHours(9, 0, 0); // Set to 9 AM tomorrow
+    return tomorrow.getTime();
+            }
