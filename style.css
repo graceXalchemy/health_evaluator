@@ -1,35 +1,50 @@
-/* --- Variable Definitions --- */
+/* --- 1. Variable Definitions --- */
 :root {
-    --bg-color: #ffffff;
-    --text-color: #333333;
-    --container-bg: #f4f7f6;
+    --bg-color: #ffffff;      /* Page Background */
+    --container-bg: #f4f7f6;  /* Box Background */
+    --text-color: #333333;    /* Main Text */
     --btn-border: #cccccc;
-    --btn-text: #333333;
 }
 
 [data-theme="dark"] {
-    --bg-color: #1a1a1a;
-    --text-color: #f0f0f0;
-    --container-bg: #121212;
-    --btn-border: #555555;
-    --btn-text: #ffffff;
+    --bg-color: #121212;      /* Deep Black/Gray */
+    --container-bg: #1e1e1e;  /* Slightly lighter gray for boxes */
+    --text-color: #f0f0f0;    /* Off-white text */
+    --btn-border: #444444;
 }
 
 [data-theme="rest"] {
-    --bg-color: #e8f5e9; /* Green bg */
-    --text-color: #2e7d32; /* Darker green text for readability */
-    --container-bg: #c8e6c9;
-    --btn-border: #81c784;
-    --btn-text: #1b5e20;
+    --bg-color: #e8f5e9;      /* Soft Green Background */
+    --container-bg: #ffffff;  /* White boxes on green background */
+    --text-color: #2e7d32;    /* Dark Green Text */
+    --btn-border: #a5d6a7;
 }
 
-/* --- Fixing Button Overlap on Results Screen --- */
-#result-box .button-group, 
-#history-box .button-group {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Space between stacked buttons */
+/* --- 2. Global Application --- */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+.container, .box, #quiz-box, #result-box, #history-box {
+    background-color: var(--container-bg) !important; /* Forces the theme choice */
+    color: var(--text-color);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+/* --- 3. Graph Label Fix --- */
+.graph-label, .date-label, #section-title, #question-text {
+    color: var(--text-color) !important;
+}
+
+/* Ensure the history items also follow the theme */
+.history-item {
+    background-color: var(--bg-color); /* Contrast against the container-bg */
+    color: var(--text-color);
+    border: 1px solid var(--btn-border);
+    }
 
 /* --- 1. Base Button Style (Applies to all) --- */
 .btn {
@@ -124,18 +139,6 @@ body {
     list-style: none;
     padding: 0;
     margin-top: 20px;
-}
-
-.history-item {
-    background-color: var(--container-bg); /* Uses the theme's darker gray/black */
-    color: var(--text-color);             /* Uses white/off-white text */
-    padding: 15px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    border: 1px solid var(--btn-border);  /* Adds a subtle outline for definition */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 .history-item strong {
