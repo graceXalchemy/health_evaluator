@@ -160,20 +160,17 @@ function toggleTopHistoryButton(show) {
     }
 }
 
+// Update showHistory to hide the top button
 function showHistory() {
-    // 1. Hide everything else
+    toggleTopHistoryButton(false); // Hide top button
     document.getElementById("quiz-box").classList.add("hidden");
     document.getElementById("result-box").classList.add("hidden");
     document.getElementById("progress-container").classList.add("hidden");
     
-    // 2. Show the history box
-    const historyBox = document.getElementById("history-box");
-    historyBox.classList.remove("hidden");
-    
-    // 3. Trigger the graph and list updates
-    renderGraph(); 
-    updateHistoryList(); 
-}
+    document.getElementById("history-box").classList.remove("hidden");
+    renderGraph();
+    updateHistoryList();
+} 
 
 function updateHistoryList() {
     const list = document.getElementById("history-list");
