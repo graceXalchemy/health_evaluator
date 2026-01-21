@@ -305,11 +305,14 @@ function renderGraph() {
     }).join('');
 }
 
-// On Page Load: Check for saved theme
-const savedTheme = localStorage.getItem('preferredTheme') || 'dark';
-changeTheme(savedTheme);
-document.getElementById('theme-select').value = savedTheme; 
+// Should be at the very bottom of file
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Set the theme
+    const savedTheme = localStorage.getItem('preferredTheme') || 'dark';
+    changeTheme(savedTheme);
+    const themeSelect = document.getElementById('theme-select');
+    if (themeSelect) themeSelect.value = savedTheme;
 
-updateUI(); // Initialize first questione(tomorrow.getDate() + 1);
-    tomorrow.setHours(9, 0, 0); // Set to 9 AM tomorrow
-    return tomorrow.getTime();
+    // 2. Start the quiz display
+    updateUI(); 
+});
