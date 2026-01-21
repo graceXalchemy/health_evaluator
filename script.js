@@ -91,10 +91,12 @@ function handleAnswer(val) {
 
 // 3. Evaluation Logic with Direct Language
 function evaluateHealth() {
+    toggleTopHistoryButton(false); // Hide top button
     document.getElementById("quiz-box").classList.add("hidden");
     document.getElementById("progress-container").classList.add("hidden");
-    const resultBox = document.getElementById("result-box");
-    const recText = document.getElementById("recommendation-text");
+    document.getElementById("result-box").classList.remove("hidden");
+    const recText = document.getElementById("recommendation-text"); 
+    
     resultBox.classList.remove("hidden");
 
     const neuroIds = ["visual", "aphasia", "sound", "coord"];
