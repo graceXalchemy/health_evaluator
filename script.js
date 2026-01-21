@@ -196,6 +196,16 @@ function clearHistory() {
     }
         } 
 
+// --- Theme Change Logic --- 
+function changeTheme(themeName) {
+    document.documentElement.setAttribute('data-theme', themeName);
+    localStorage.setItem('preferredTheme', themeName);
+
+// On Page load check for saved theme
+const savedTheme = localStorage.getItem('preferredTheme') || 'light';
+    changeTheme(savedTheme);
+    document.getElementById('theme-select').value = savedTheme;
+
 // --- Notification Logic ---
 
 function requestNotificationPermission() {
