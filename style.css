@@ -23,51 +23,57 @@
     --btn-text: #1b5e20;
 }
 
-/* --- Improved Button Styles --- */
+/* --- Fixing Button Overlap on Results Screen --- */
+#result-box .button-group, 
+#history-box .button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between stacked buttons */
+}
+
+/* --- 1. Base Button Style (Applies to all) --- */
 .btn {
-    flex: 1;
+    display: block;      /* Ensures they take up their own line when stacked */
+    width: 100%;         /* Full width to prevent overlap on small screens */
     padding: 18px;
-    border: 2px solid var(--btn-border); /* Border makes buttons visible in all modes */
+    margin-bottom: 10px; /* Space between stacked buttons */
+    border: 2px solid var(--btn-border);
     border-radius: 8px;
     cursor: pointer;
     font-size: 1.1rem;
     font-weight: bold;
     background-color: var(--bg-color);
     color: var(--btn-text);
-    transition: all 0.2s ease;
+    transition: background-color 0.2s ease;
+    box-sizing: border-box; /* Critical: keeps padding inside the width */
 }
 
-/* Specifically fixing the "Yes" button in Rest Mode */
-[data-theme="rest"] .btn-yes {
-    background-color: #ffffff; /* Solid white background so it pops against green */
-    border: 3px solid #2e7d32;
-    color: #2e7d32;
-}
+/* --- 2. Color Identity for Yes/No --- */
+/* Light and Rest Mode defaults */
+.btn-yes { border-color: #4caf50; color: #2e7d32; }
+.btn-no { border-color: #f44336; color: #c62828; }
 
-/* Fixing Dark Mode "View History" and other buttons */
-[data-theme="dark"] .btn, 
-[data-theme="dark"] .btn-small {
-    background-color: #333333;
-    color: #ffffff;
-    border-color: #555555;
-}
-/* --- Dark Mode Specific Button Colors --- */
+/* --- 3. Dark Mode Specifics (Overwrites defaults) --- */
 [data-theme="dark"] .btn-yes {
-    background-color: #1b5e20; /* Deep Green */
+    background-color: #1b5e20; 
     border-color: #2e7d32;
     color: #ffffff;
 }
 
 [data-theme="dark"] .btn-no {
-    background-color: #b71c1c; /* Deep Red */
+    background-color: #b71c1c; 
     border-color: #d32f2f;
     color: #ffffff;
 }
-/* Ensure Yes/No buttons still have their color identity */
-.btn-yes { border-color: #4caf50; color: #2e7d32; }
-.btn-no { border-color: #f44336; color: #c62828; }
 
-/* Small Header Button Fix */
+/* --- 4. Rest Mode Specifics (Overwrites defaults) --- */
+[data-theme="rest"] .btn-yes {
+    background-color: #ffffff; 
+    border: 3px solid #2e7d32;
+    color: #2e7d32;
+}
+
+/* --- 5. Small Header Button --- */
 .btn-small {
     padding: 6px 12px;
     font-size: 0.85rem;
@@ -75,6 +81,7 @@
     color: var(--text-color);
     border: 1px solid var(--btn-border);
     border-radius: 4px;
+    cursor: pointer;
 }
 
 body { 
