@@ -22,7 +22,7 @@
         </div>
         
         <div id="quiz-box">
-            <div id="last-checkin" style="color: #666; margin-bottom: 10px;"></div> 
+            <div id="last-checkin"></div> 
             <h2 id="section-title">Section Name</h2>
             <p id="question-text">Question goes here?</p>
             <div class="button-group">
@@ -37,8 +37,8 @@
             <button class="btn" onclick="showHistory()">View History</button>
             <button class="btn" onclick="location.reload()">Start Over</button>
             <button class="btn" onclick="location.reload()">Back</button>
-            <div id="notification-settings" style="margin-top: 20px; padding: 10px; border-top: 1px solid #eee;">
-                <button class="btn" style="background-color: #9c27b0; color: white;" onclick="requestNotificationPermission()">
+            <div id="notification-settings">
+                <button class="btn" onclick="requestNotificationPermission()">
                     Enable Daily Reminders
                 </button>
             </div>
@@ -53,7 +53,7 @@
             </div>
             <ul id="history-list"></ul>
             <div class="button-group" style="flex-direction: column;">
-                <button class="btn" style="background-color: #2196F3; color: white;" onclick="downloadCSV()">
+                <button class="btn" onclick="downloadCSV()">
                     Download CSV
                 </button>
                 <button class="btn" onclick="location.reload()">
