@@ -306,13 +306,26 @@ function renderGraph() {
 }
 
 // Should be at the very bottom of file
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. Set the theme
-    const savedTheme = localStorage.getItem('preferredTheme') || 'dark';
-    changeTheme(savedTheme);
-    const themeSelect = document.getElementById('theme-select');
-    if (themeSelect) themeSelect.value = savedTheme;
+// --- The Final Initialization ---
+function initApp() {
+    try {
+        // 1. Apply the saved theme immediately
+        const savedTheme = localStorage.getItem('preferredTheme') || 'dark';
+        changeTheme(savedTheme);
+        const themeSelect = document.getElementById('theme-select');
+        if (themeSelect) themeSelect.value = savedTheme;
 
-    // 2. Start the quiz display
-    updateUI(); 
-});
+        // 2. Ensure questions actually exist
+        if (questions.length > 0) {
+            updateUI();
+        } else {
+            console.error("Question array is empty. Check shuffle logic.");
+            document.getElementById("question-text").innerText = "Error: Questions not loaded.";
+        }
+    } catch (error) {
+        console.error("Initialization failed:", error);
+    }
+}
+
+// Start the app
+initApp();
