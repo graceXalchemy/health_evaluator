@@ -119,21 +119,31 @@ body {
     border-radius: 4px;
     transition: width 0.3s;
 }
-
+/* --- History List Styling --- */
 #history-list {
     list-style: none;
     padding: 0;
     margin-top: 20px;
-    text-align: left;
 }
 
 .history-item {
-    background: #f9f9f9;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    border-radius: 4px;
-    margin-bottom: 8px;
-    font-size: 0.9rem;
+    background-color: var(--container-bg); /* Uses the theme's darker gray/black */
+    color: var(--text-color);             /* Uses white/off-white text */
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--btn-border);  /* Adds a subtle outline for definition */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.history-item strong {
+    color: var(--text-color);
+}
+
+.history-item small {
+    color: #888; /* Keeps the date slightly muted but readable */
 }
 
 .history-status {
