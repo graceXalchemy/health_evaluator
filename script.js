@@ -121,16 +121,6 @@ function evaluateHealth() {
     saveToHistory(status, neuroScore);
 }
 
-function saveToHistory(status) {
-    const history = JSON.parse(localStorage.getItem('healthHistory')) || [];
-    const newEntry = {
-        date: new Date().toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
-        status: status
-    };
-    history.unshift(newEntry);
-    localStorage.setItem('healthHistory', JSON.stringify(history.slice(0, 10)));
-} 
-
 function downloadCSV() {
     const history = JSON.parse(localStorage.getItem('healthHistory')) || [];
     if (history.length === 0) return alert("No data to download");
@@ -162,15 +152,21 @@ function saveToHistory(status, neuroScore) { // Add neuroScore parameter
 }
 
 function showHistory() {
-    // Hide everything else
+    // 1. Hide everything else
     document.getElementById("quiz-box").classList.add("hidden");
     document.getElementById("result-box").classList.add("hidden");
     document.getElementById("progress-container").classList.add("hidden");
     
-    // Show history
-    document.getElementById("history-box").classList.remove("hidden");
-    renderGraph();
+    // 2. Show the history box
+    const historyBox = document.getElementById("history-box");
+    historyBox.classList.remove("hidden");
     
+    // 3. Trigger the graph and list updates
+    renderGraph(); 
+    updateHistoryList(); 
+}
+
+function updateHistoryList() {
     const list = document.getElementById("history-list");
     const history = JSON.parse(localStorage.getItem('healthHistory')) || [];
     
@@ -179,12 +175,12 @@ function showHistory() {
     } else {
         list.innerHTML = history.map(item => `
             <li class="history-item">
-                <span class="history-status">${item.status}</span>
+                <span><strong>${item.status}</strong></span>
                 <small>${item.date}</small>
             </li>
         `).join('');
     }
-}
+} 
 
 function clearHistory() {
     if(confirm("Delete all history?")) {
@@ -197,11 +193,6 @@ function clearHistory() {
 function changeTheme(themeName) {
     document.documentElement.setAttribute('data-theme', themeName);
     localStorage.setItem('preferredTheme', themeName);
-
-// On Page load check for saved theme
-const savedTheme = localStorage.getItem('preferredTheme') || 'dark';
-    changeTheme(savedTheme);
-    document.getElementById('theme-select').value = savedTheme;
 
 // --- Notification Logic ---
 
@@ -314,7 +305,7 @@ function renderGraph() {
 }
 
 // On Page Load: Check for saved theme
-const savedTheme = localStorage.getItem('preferredTheme') || 'light';
+const savedTheme = localStorage.getItem('preferredTheme') || 'dark';
 changeTheme(savedTheme);
 document.getElementById('theme-select').value = savedTheme; 
 
