@@ -91,12 +91,17 @@ function handleAnswer(val) {
 
 // 3. Evaluation Logic with Direct Language
 function evaluateHealth() {
-    toggleTopHistoryButton(false); // Hide top button
-    document.getElementById("quiz-box").classList.add("hidden");
-    document.getElementById("progress-container").classList.add("hidden");
-    document.getElementById("result-box").classList.remove("hidden");
-    const recText = document.getElementById("recommendation-text"); 
+    toggleTopHistoryButton(false);
     
+    // Define the variables properly
+    const quizBox = document.getElementById("quiz-box");
+    const resultBox = document.getElementById("result-box");
+    const progressContainer = document.getElementById("progress-container");
+    const recText = document.getElementById("recommendation-text");
+
+    // Hide quiz and show results
+    quizBox.classList.add("hidden");
+    progressContainer.classList.add("hidden");
     resultBox.classList.remove("hidden");
 
     const neuroIds = ["visual", "aphasia", "sound", "coord"];
@@ -120,8 +125,11 @@ function evaluateHealth() {
     }
 
     recText.innerHTML = message;
+    
+    // Save data and then immediately refresh the list
     saveToHistory(status, neuroScore);
-}
+    updateHistoryList(); 
+} 
 
 function downloadCSV() {
     const history = JSON.parse(localStorage.getItem('healthHistory')) || [];
