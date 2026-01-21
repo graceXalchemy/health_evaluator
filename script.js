@@ -202,7 +202,7 @@ function changeTheme(themeName) {
     localStorage.setItem('preferredTheme', themeName);
 
 // On Page load check for saved theme
-const savedTheme = localStorage.getItem('preferredTheme') || 'light';
+const savedTheme = localStorage.getItem('preferredTheme') || 'dark';
     changeTheme(savedTheme);
     document.getElementById('theme-select').value = savedTheme;
 
