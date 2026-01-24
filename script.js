@@ -122,6 +122,7 @@ function evaluateHealth() {
             Follow your prescribed asthma action plan. 
             Check your inhaler and ensure your posture is open.
         </div>`;
+        status = "Asthma Protocol";
     } else if (neuroScore >= 2 || (answers.irritability && answers.jaw)) {
         status = "60 Minute Break";
         message = "<strong>Take a break.</strong> Stop all screen work and turn off audio for 60 minutes. Your body needs to rest.";
