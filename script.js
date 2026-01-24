@@ -222,9 +222,19 @@ function changeTheme(themeName) {
     localStorage.setItem('preferredTheme', themeName);
 }
 
+// --- Undo Last Answer Logic --- 
 function undoAnswer() {
     if (currentIdx > 0) {
+        // 1. Move the counter back
         currentIdx--;
+        
+        // 2. Find the ID of the question we just went back to
+        const previousQuestionId = questions[currentIdx].id;
+        
+        // 3. Delete that specific answer so it's ready for a new one
+        delete answers[previousQuestionId];
+        
+        // 4. Refresh the screen
         updateUI();
     }
 }
