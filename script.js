@@ -222,6 +222,13 @@ function changeTheme(themeName) {
     localStorage.setItem('preferredTheme', themeName);
 }
 
+function undoAnswer() {
+    if (currentIdx > 0) {
+        currentIdx--;
+        updateUI();
+    }
+}
+
 // --- Notification Logic ---
 
 function requestNotificationPermission() {
