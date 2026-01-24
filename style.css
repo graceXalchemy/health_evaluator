@@ -150,19 +150,38 @@ body {
     border-radius: 4px;
     transition: width 0.3s;
 }
-/* --- History List Styling --- */
-#history-list {
-    list-style: none;
-    padding: 0;
-    margin-top: 20px;
+
+.history-item {
+    background-color: var(--bg-color); /* Contrast color */
+    color: var(--text-color);
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--btn-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Specific fix for Dark Mode (Light text on Dark Gray) */
+[data-theme="dark"] .history-item {
+    background-color: #2d2d2d !important;
+    color: #f0f0f0 !important;
+}
+
+/* Specific fix for Recover Mode (Dark Olive text on Warm Beige) */
+[data-theme="rest"] .history-item {
+    background-color: #ffffff !important; /* White card on beige background */
+    color: #3d405b !important;
+    border-color: #ccd5ae;
 }
 
 .history-item strong {
-    color: var(--text-color);
+    color: inherit; /* Inherits the correct theme color */
 }
 
 .history-item small {
-    color: #888; /* Keeps the date slightly muted but readable */
+    color: inherit; /* Keeps the date slightly muted but readable */
 }
 
 .history-status {
