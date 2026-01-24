@@ -12,6 +12,7 @@ const questionData = [
     {
         section: "Physical",
         questions: [
+            { id: "asthma", text: "Am I experiencing chest tightness or shallow breathing (alternatively, dry coughing or exessive dryness of throat)?" }, // New
             { id: "jaw", text: "Are my teeth touching or clenched?" },
             { id: "edema", text: "Does my footwear or skin feel tighter than an hour ago?" },
             { id: "posture", text: "Is my chin reaching toward the screen?" },
@@ -109,10 +110,18 @@ function evaluateHealth() {
 
     let status = "";
     let message = "";
+    let asthmaReminder = "";
 
     if (answers.weakness && neuroScore >= 1) {
         status = "Stop Now";
         message = "<strong>You must stop.</strong> You have muscle weakness and brain warning signs. Sit or lie down in a quiet place.";
+    } else if (answers.asthma) {
+        asthmaReminder = `
+        <div class="protocol-box">
+            <strong>🫁 Respiratory Protocol:</strong><br>
+            Follow your prescribed asthma action plan. 
+            Check your inhaler and ensure your posture is open.
+        </div>`;
     } else if (neuroScore >= 2 || (answers.irritability && answers.jaw)) {
         status = "60 Minute Break";
         message = "<strong>Take a break.</strong> Stop all screen work and turn off audio for 60 minutes. Your body needs to rest.";
@@ -124,7 +133,8 @@ function evaluateHealth() {
         message = "<strong>You can keep working.</strong> You do not have signs of over-taxing right now. Check again in 3 hours.";
     }
 
-    recText.innerHTML = message;
+    // Append the reminder to the main message
+    recText.innerHTML = message + asthmaReminder;
     
     // Save data and then immediately refresh the list
     saveToHistory(status, neuroScore);
