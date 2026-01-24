@@ -344,3 +344,13 @@ body {
 #graph-container h3 {
     color: #333333 !important;
 }
+
+#undo-link {
+    display: block;
+    padding: 15px; /* Makes the "tap" area larger */
+    text-align: center;
+    color: var(--text-color);
+    margin-top: 30px;
+    border: 1px dashed var(--btn-border);
+    border-radius: 8px;
+}
