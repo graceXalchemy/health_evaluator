@@ -317,6 +317,27 @@ body {
     color: var(--text-color);
     }
 
+.goal-line {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    border-top: 2px dashed #f44336;
+    z-index: 10; /* Ensures line is visible */
+}
+
+.goal-label {
+    position: absolute;
+    right: 5px;
+    top: -20px; /* Moves text ABOVE the line */
+    color: #f44336;
+    font-size: 0.7rem;
+    font-weight: bold;
+    /* This shadow creates a "glow" so text is readable over red bars */
+    text-shadow: 1px 1px 0 var(--bg-color), -1px -1px 0 var(--bg-color), 
+                 1px -1px 0 var(--bg-color), -1px 1px 0 var(--bg-color);
+}
+
 /* Force all text in the history/graph area to follow the theme */
 #history-box *, #graph-container * {
     color: var(--text-color);
