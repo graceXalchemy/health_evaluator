@@ -13,11 +13,34 @@
     --btn-border: #444444;
 }
 
+/* --- Updated Recover Theme (Olive & Warm Beige) --- */
 [data-theme="rest"] {
-    --bg-color: #e8f5e9;      /* Soft Green Background */
-    --container-bg: #ffffff;  /* White boxes on green background */
-    --text-color: #2e7d32;    /* Dark Green Text */
-    --btn-border: #a5d6a7;
+    --bg-color: #6b705c;      /* Muted, desaturated Olive */
+    --container-bg: #f0ead6;  /* Warm Eggshell/Beige */
+    --text-color: #3d405b;    /* Deep Slate for high legibility */
+    --btn-border: #a5a58d;    /* Sage border */
+}
+
+/* Ensure the background applies to the whole screen */
+[data-theme="rest"] body {
+    background-color: var(--bg-color);
+}
+
+/* Make containers pop against the olive */
+[data-theme="rest"] .container, 
+[data-theme="rest"] #quiz-box, 
+[data-theme="rest"] #result-box, 
+[data-theme="rest"] #history-box {
+    background-color: var(--container-bg) !important;
+    color: var(--text-color);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+/* Custom button style for Olive mode */
+[data-theme="rest"] .btn {
+    background-color: #ffffff;
+    color: #6b705c;
+    border: 2px solid #6b705c;
 }
 
 /* --- 2. Global Application --- */
@@ -64,7 +87,7 @@ body {
 }
 
 /* --- 2. Color Identity for Yes/No --- */
-/* Light and Rest Mode defaults */
+/* Light Mode defaults */
 .btn-yes { border-color: #4caf50; color: #2e7d32; }
 .btn-no { border-color: #f44336; color: #c62828; }
 
@@ -79,29 +102,6 @@ body {
     background-color: #b71c1c; 
     border-color: #d32f2f;
     color: #ffffff;
-}
-
-/* --- Updated Recover Theme (Green & Beige) --- */
-[data-theme="rest"] {
-    --bg-color: #2e7d32;      /* Deep Forest Green */
-    --container-bg: #f4f7f6;  /* Soft Day-mode Beige/Mint */
-    --text-color: #1b5e20;    /* Dark Green Text */
-    --btn-border: #81c784;
-}
-
-/* Ensure the background applies to the whole screen */
-[data-theme="rest"] body {
-    background-color: var(--bg-color);
-}
-
-/* Make containers pop against the green */
-[data-theme="rest"] .container, 
-[data-theme="rest"] #quiz-box, 
-[data-theme="rest"] #result-box, 
-[data-theme="rest"] #history-box {
-    background-color: var(--container-bg) !important;
-    color: var(--text-color);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
 /* --- 5. Small Header Button --- */
