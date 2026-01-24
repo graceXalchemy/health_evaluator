@@ -115,6 +115,13 @@ body {
     cursor: pointer;
 }
 
+/* --- Fix Top View History Button in Recover Mode --- */
+[data-theme="rest"] .btn-small {
+    background-color: #f0ead6 !important; /* Matches the warm beige container */
+    color: #3d405b !important;           /* Matches the deep slate text */
+    border: 1px solid #6b705c;           /* Olive border for definition */
+}
+
 body { 
     background-color: var(--container-bg); 
     color: var(--text-color); 
