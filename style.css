@@ -171,6 +171,23 @@ body {
     background-color: #6b705c; /* Olive fill for Recover mode */
 }
 
+.protocol-box {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-left: 5px solid #ff9800; /* Warning Orange */
+    border-radius: 4px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+/* Specific color for Olive/Recover mode to ensure visibility */
+[data-theme="rest"] .protocol-box {
+    background-color: #e9edc9; /* Lighter olive/yellow */
+    border-left-color: #bc6c25; /* Earthy orange-brown */
+    color: #3d405b;
+}
+
 .history-item {
     background-color: var(--bg-color); /* Contrast color */
     color: var(--text-color);
