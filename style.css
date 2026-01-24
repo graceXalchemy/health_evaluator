@@ -255,3 +255,20 @@ body {
     border-radius: 4px 4px 0 0;
     margin: 0 2px;
 }
+
+/* Specific override to keep graph labels dark on white backgrounds */
+.graph-label, 
+.date-label, 
+.date-label strong {
+    color: #333333 !important; /* Forces dark gray/black */
+}
+
+/* Ensure the axis line is also visible on the white background */
+#graph-labels {
+    border-top: 1px solid #dddddd !important;
+}
+
+/* If you have a 'Neurological Score' title above the bars */
+#graph-container h3 {
+    color: #333333 !important;
+}
